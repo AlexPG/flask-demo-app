@@ -1,0 +1,14 @@
+Flask==0.11.1
+
+# Base Flask Extensions
+Flask-Migrate==2.0.0
+Flask-SQLAlchemy==2.1
+Flask-Script==2.0.5
+Flask-WTF==0.12
+
+# Local
+Flask-DebugToolbar==0.10.0
+
+# Test
+pytest==3.0.2
+pytest-cov==2.3.1
