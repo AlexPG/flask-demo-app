@@ -1,2 +1,5 @@
 # Virtualenv
 venv
+
+# Python 3 bytecode
+__pycache__

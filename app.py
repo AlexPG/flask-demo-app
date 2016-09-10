@@ -1,10 +1,13 @@
 from flask import Flask
+from config import config
 
-app = Flask(__name__)
+def create_app(config_name):
 
-@app.route('/')
-def hello():
-    return "Hello World!"
+    app = Flask(__name__)
+    app.config.from_object(config[config_name])
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    @app.route('/')
+    def hello():
+        return "Hello World!"
+
+    return app
