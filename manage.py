@@ -2,7 +2,7 @@ import os
 
 from flask_script import Manager, Server
 
-from app import create_app
+from demo_app import create_app
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
