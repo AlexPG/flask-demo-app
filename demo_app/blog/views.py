@@ -4,4 +4,4 @@ from . import blog
 
 @blog.route('/', methods=['GET'])
 def hello():
-    return "Hello World from blog module!"
+    return render_template('blog/index.html')
