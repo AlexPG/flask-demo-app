@@ -1,13 +1,15 @@
 import os
 
 from flask_script import Manager, Server
+from flask_migrate import MigrateCommand
 
-from demo_app import create_app, db
+from demo_app import create_app, db, migrate
 from demo_app.blog.models import Author, Category, Entry
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
 
+manager.add_command('db', MigrateCommand)
 manager.add_command('runserver', Server())
 
 @manager.command
