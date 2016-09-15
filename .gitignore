@@ -8,3 +8,6 @@ __pycache__
 htmlcov
 .coverage
 .cache
+
+# Database files
+*.sqlite
