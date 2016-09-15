@@ -16,7 +16,7 @@ def create_app(config_name):
     bootstrap.init_app(app)
     debug_toolbar.init_app(app)
 
-    from .blog import blog as blogModule
-    app.register_blueprint(blogModule)
+    from .main import main as mainModule
+    app.register_blueprint(mainModule)
 
     return app
