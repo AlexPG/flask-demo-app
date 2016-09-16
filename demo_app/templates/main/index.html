@@ -1,26 +1,9 @@
-{%- extends "bootstrap/base.html" %}
+{%- extends "_layouts/main_base.html" %}
 
 {% block title %}Demo-App{% endblock %}
 
-{% block styles %}
-{{super()}}
-<link rel="stylesheet"
-      href="{{url_for('static', filename='css/style.css')}}">
-{% endblock %}
-
-{% block navbar %}
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="{{ url_for('main.hello') }}">Home</a>
-        </div>
-      </div>
-    </div>
-{% endblock navbar %}
-
 {% block content %}
-    {{super()}}
-    <div class="jumbotron">
+    <div class="jumbotron top">
         <div class="left">
             <div ></div>
                 <h1>Welcome visitor</h1>
@@ -29,8 +12,5 @@
         </div>
     </div>
 
-    {% block footer %}
-        <hr>
-        <p align="center"><i>2016</i></p>
-    {% endblock %}
+    {{super()}}
 {% endblock %}

@@ -1,0 +1,24 @@
+{%- extends "bootstrap/base.html" %}
+
+{% block styles %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+{% endblock %}
+
+{% block navbar %}
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for('main.hello') }}">Home</a>
+                <a class="navbar-brand" href="{{ url_for('admin.index') }}">Admin</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% block footer %}
+        <hr>
+        <p align="center"><i>2016</i></p>
+    {% endblock %}
+{% endblock %}
