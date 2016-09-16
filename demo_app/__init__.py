@@ -25,4 +25,7 @@ def create_app(config_name):
     from .main import main as mainModule
     app.register_blueprint(mainModule)
 
+    from .admin import admin as adminModule
+    app.register_blueprint(adminModule, url_prefix='/admin')
+
     return app
