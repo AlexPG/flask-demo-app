@@ -9,7 +9,7 @@ class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
 
-    entry = db.relationship('Entry', backref=db.backref('authors', lazy='dynamic'))
+    entry = db.relationship('Entry', backref=db.backref('authors'))
 
     def __init__(self, name):
         self.name = name

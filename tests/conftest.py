@@ -1,6 +1,7 @@
 import pytest
 
 from demo_app import create_app
+from demo_app import db as _db
 
 @pytest.fixture(scope='session')
 def app(request):
@@ -16,7 +17,18 @@ def app(request):
     return app
 
 @pytest.fixture(scope='session')
-def app_client(app, request):
+def app_client(app):
     client = app.test_client()
 
     return client
+
+@pytest.fixture(scope='session')
+def db(app, request):
+    _db.create_all()
+
+    def teardown():
+        _db.drop_all()
+
+    request.addfinalizer(teardown)
+
+    return _db
