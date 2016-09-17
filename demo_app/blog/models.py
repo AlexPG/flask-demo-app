@@ -8,6 +8,8 @@ entry_category = db.Table('entry_category',
 class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
+    description = db.Column(db.Text)
+    email = db.Column(db.String(120), unique=True)
 
     entry = db.relationship('Entry', backref=db.backref('authors'))
 
