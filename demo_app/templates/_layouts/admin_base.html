@@ -1,22 +1,24 @@
 {%- extends "_layouts/main_base.html" %}
 
 {% block content %}
-    <div class="top">
-        <div class="row">
-            <div class="col-md-1">
+
+    <div class="row">
+        <div class="col-md-1">
+            <div class="top">
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation"><a href="#">Entries</a></li>
                     <li role="presentation"><a href="{{ url_for('admin.authors') }}">Authors</a></li>
                     <li role="presentation"><a href="#">Categories</a></li>
                 </ul>
             </div>
-            <div class="col-md-11">
-                {% block admin_content %}
+        </div>
+        <div class="col-md-11">
+            {% block admin_content %}
 
-                {% endblock %}
-            </div>
+            {% endblock %}
         </div>
     </div>
+
     {% block footer%}
         {{super()}}
     {% endblock %}
