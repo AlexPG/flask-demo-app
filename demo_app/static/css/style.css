@@ -3,5 +3,9 @@
 }
 
 .top{
-    padding-top: 50px;
+    padding-top: 60px;
+}
+
+.inner_jumbotron{
+    padding-top: 10px;
 }

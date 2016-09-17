@@ -18,6 +18,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    WTF_CSRF_ENABLED = False
     SERVER_NAME = 'localhost:5000'
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
                               'sqlite:///' + os.path.join(

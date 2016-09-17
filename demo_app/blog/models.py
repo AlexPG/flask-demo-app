@@ -13,8 +13,10 @@ class Author(db.Model):
 
     entry = db.relationship('Entry', backref=db.backref('authors'))
 
-    def __init__(self, name):
+    def __init__(self, name, description, email):
         self.name = name
+        self.description = description
+        self.email = email
 
     def __repr__(self):
         return '<Author %r>' % self.name
