@@ -1,4 +1,5 @@
 from flask import flash, render_template, redirect, url_for
+from sqlalchemy.exc import IntegrityError
 
 from . import admin
 from .forms import AuthorForm
@@ -18,14 +19,18 @@ def authors():
 @admin.route('/authors/create', methods=['GET', 'POST'])
 def create_author():
     form = AuthorForm()
-    if form.validate_on_submit():
-        author = Author(
-                    name = form.name.data,
-                    description = form.description.data,
-                    email = form.email.data
-                )
-        db.session.add(author)
-        db.session.commit()
-        flash('Author has been successfully created')
-        return redirect(url_for('admin.authors'))
+    try:
+        if form.validate_on_submit():
+            author = Author(
+                        name = form.name.data,
+                        description = form.description.data,
+                        email = form.email.data
+                    )
+            db.session.add(author)
+            db.session.commit()
+            flash('Author has been successfully created')
+            return redirect(url_for('admin.authors'))
+    except IntegrityError:
+        flash('Email must be unique')
+        return render_template('admin/authors/authors_create.html', form=form)
     return render_template('admin/authors/authors_create.html', form=form)

@@ -12,19 +12,11 @@
             </div>
         </div>
         <div class="col-md-11">
-            {% block message %}
-                <div class="top">
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="alert alert-success" role="alert">
-                                    <p>{{ message }}</p>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    {% endwith %}
-                </div>
-            {% endblock %}
+            <div class="top">
+                {% block message %}
+                {% endblock %}
+            </div>
+
             <div class="jumbotron inner_jumbotron">
                 {% block admin_content %}
                 {% endblock %}

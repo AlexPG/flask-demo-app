@@ -4,17 +4,14 @@ from demo_app import create_app
 from demo_app import db as _db
 
 @pytest.fixture(scope='session')
-def app(request):
+def app():
     app = create_app('testing')
     app_context = app.app_context()
     app_context.push()
 
-    def teardown():
-        app_context.pop()
+    yield app
 
-    request.addfinalizer(teardown)
-
-    return app
+    app_context.pop()
 
 @pytest.fixture(scope='session')
 def app_client(app):
@@ -23,12 +20,10 @@ def app_client(app):
     return client
 
 @pytest.fixture(scope='session')
-def db(app, request):
+def db(request):
     _db.create_all()
 
-    def teardown():
-        _db.drop_all()
+    yield _db
 
-    request.addfinalizer(teardown)
+    _db.drop_all()
 
-    return _db
