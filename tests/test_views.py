@@ -20,11 +20,11 @@ def test_admin_author_cant_get_detail_view_when_no_user(app_client, session):
     assert response.status_code == 404
 
 def test_admin_author_can_get_create_view(app_client, session):
-    response = app_client.get(url_for('admin.create_author'))
+    response = app_client.get(url_for('admin.author_create'))
     assert response.status_code == 200
 
 def test_admin_author_can_post_create_view(app_client, session):
-    response = app_client.post(url_for('admin.create_author'), data={
+    response = app_client.post(url_for('admin.author_create'), data={
         'name': 'John Doe',
         'description': 'Hi, I am John Doe',
         'email': 'john@example.com'
@@ -32,7 +32,7 @@ def test_admin_author_can_post_create_view(app_client, session):
     assert response.status_code == 200
 
 def test_admin_author_cant_post_create_view_with_duplicate_email(app_client, session):
-    response = app_client.post(url_for('admin.create_author'), data={
+    response = app_client.post(url_for('admin.author_create'), data={
         'name': 'John Doe',
         'description': 'Hi, I am John Doe',
         'email': 'john@example.com'

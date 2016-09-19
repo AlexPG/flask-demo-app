@@ -24,7 +24,7 @@ def author_detail(author_id):
     return abort(404)
 
 @admin.route('/authors/create', methods=['GET', 'POST'])
-def create_author():
+def author_create():
     form = AuthorForm()
     try:
         if form.validate_on_submit():
@@ -41,3 +41,4 @@ def create_author():
         flash('Email must be unique')
         return render_template('admin/authors/author_create.html', form=form)
     return render_template('admin/authors/author_create.html', form=form)
+

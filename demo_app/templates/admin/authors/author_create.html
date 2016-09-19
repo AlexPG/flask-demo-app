@@ -5,7 +5,7 @@
 {% block admin_content %}
     <div class="left">
         <h2>Create new author</h2>
-        <form method="POST" action="/admin/authors/create">
+        <form method="POST" action="{{ url_for('admin.author_create') }}">
             {{ form.csrf_token }}
             <div class="form-group">
                 {% for error in form.errors['name'] %}
