@@ -20,10 +20,19 @@ def app_client(app):
     return client
 
 @pytest.fixture(scope='session')
-def db(request):
+def db():
     _db.create_all()
 
     yield _db
 
     _db.drop_all()
 
+@pytest.fixture(scope='function')
+def session(db):
+    session = db.create_scoped_session()
+
+    db.session = session
+
+    yield  session
+
+    session.remove()

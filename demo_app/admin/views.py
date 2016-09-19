@@ -1,4 +1,4 @@
-from flask import flash, render_template, redirect, url_for
+from flask import abort, flash, render_template, redirect, url_for
 from sqlalchemy.exc import IntegrityError
 
 from . import admin
@@ -14,7 +14,14 @@ def index():
 @admin.route('/authors', methods=['GET'])
 def authors():
     authors = Author.query.all()
-    return render_template('admin/authors/authors_list.html', authors=authors)
+    return render_template('admin/authors/author_list.html', authors=authors)
+
+@admin.route('/authors/<int:author_id>', methods=['GET'])
+def author_detail(author_id):
+    author = Author.query.filter_by(id=author_id).first()
+    if author is not None:
+        return render_template('admin/authors/author_detail.html', author=author)
+    return abort(404)
 
 @admin.route('/authors/create', methods=['GET', 'POST'])
 def create_author():
@@ -32,5 +39,5 @@ def create_author():
             return redirect(url_for('admin.authors'))
     except IntegrityError:
         flash('Email must be unique')
-        return render_template('admin/authors/authors_create.html', form=form)
-    return render_template('admin/authors/authors_create.html', form=form)
+        return render_template('admin/authors/author_create.html', form=form)
+    return render_template('admin/authors/author_create.html', form=form)

@@ -1,0 +1,41 @@
+{% extends '_layouts/admin_base.html' %}
+
+{% block admin_content %}
+    <div class="left">
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordesless">
+                     <tr>
+                        <th>{{ author.name }}</th>
+                        <th>
+                            <div class="pull-right">
+                                <a href="#">Edit Profile</a>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                            {% if author.description %}
+                                <td>{{ author.description }}</td>
+                            {% else %}
+                                <td>No description provided yet.</td>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td><a href="mailto:#">{{ author.email }}</a></td>
+                    </tr>
+                </table>
+                <div>
+                    <a href="#" class="btn btn-primary">My Entries</a>
+                    <span class="pull-right">
+                        <a href="#" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="#" type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

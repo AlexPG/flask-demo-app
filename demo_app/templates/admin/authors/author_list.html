@@ -28,7 +28,7 @@
                         </tr>
                         {% for a in authors %}
                             <tr>
-                                <td>{{ a.name }}</td>
+                                <td><a href="{{ url_for('admin.author_detail', author_id=a.id) }}">{{ a.name }}</a></td>
                                 <td><span class="glyphicon glyphicon-pencil"></span></td>
                                 <td><span class="glyphicon glyphicon-remove"></span></td>
                             </tr>

@@ -9,3 +9,17 @@
 .inner_jumbotron{
     padding-top: 10px;
 }
+
+.table-bordesless th, .table-bordesless td {
+    border-top: none !important;
+    border-left: none !important;
+}
+.fixed-table-container {
+    border:0px;
+}
+.table-bordesless th {
+    border-bottom: none !important;
+}
+.table-bordesless:last-child{
+  border:none !important;
+}
