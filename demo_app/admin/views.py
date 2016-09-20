@@ -66,3 +66,13 @@ def author_update(author_id):
         flash('Email must be unique')
         return render_template('admin/authors/author_update.html', form=form, author=author), 404
     return render_template('admin/authors/author_update.html', form=form, author=author)
+
+@admin.route('/authors/delete/<int:author_id>', methods=['GET'])
+def author_delete(author_id):
+    author = Author.query.filter_by(id=author_id).first()
+    if author is None:
+        return abort(404)
+    db.session.delete(author)
+    db.session.commit()
+    flash('Author has been successfully deleted')
+    return redirect(url_for('admin.authors'))

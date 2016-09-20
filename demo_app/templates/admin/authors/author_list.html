@@ -30,7 +30,7 @@
                             <tr>
                                 <td><a href="{{ url_for('admin.author_detail', author_id=a.id) }}">{{ a.name }}</a></td>
                                 <td><a href="{{ url_for('admin.author_update', author_id=a.id) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                <td><span class="glyphicon glyphicon-remove"></span></td>
+                                <td><a href="#" data-href="{{ url_for('admin.author_delete', author_id=a.id) }}" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-remove"></span></a></td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -39,6 +39,14 @@
         {% else %}
             <p>It looks like there isn't any author yet. Do you want to create a new one?</p>
         {% endif %}
-        <p>Add a new author <a href="{{ url_for('admin.author_create') }}"><span class="glyphicon glyphicon-plus-sign"></a></span></p>
+        <a href="{{ url_for('admin.author_create') }}" type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add new author</a>
     </div>
+
+    {% include "admin/authors/delete_user_modal.html" %}
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/confirm_delete.js') }}"></script>
 {% endblock %}
