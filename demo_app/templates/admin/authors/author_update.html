@@ -1,11 +1,11 @@
 {% extends "_layouts/admin_base.html" %}
 
-{% block title %}Authors - Create Author{% endblock %}
+{% block title %}Authors - Update Author{% endblock %}
 
 {% block admin_content %}
     <div class="left">
         <h2>Create new author</h2>
-        <form method="POST" action="{{ url_for('admin.author_create') }}">
+        <form method="POST" action="{{ url_for('admin.author_update', author_id=author.id) }}">
             {{ form.csrf_token }}
             <div class="form-group">
                 {% for error in form.errors['name'] %}

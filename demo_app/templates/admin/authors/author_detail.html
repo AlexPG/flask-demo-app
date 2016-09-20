@@ -1,5 +1,7 @@
 {% extends '_layouts/admin_base.html' %}
 
+{% block title %}Authors - {{ author.name }}{% endblock %}
+
 {% block admin_content %}
     <div class="left">
         <div class="row">
@@ -9,7 +11,7 @@
                         <th>{{ author.name }}</th>
                         <th>
                             <div class="pull-right">
-                                <a href="#">Edit Profile</a>
+                                <a href="{{ url_for('admin.author_update', author_id=author.id) }}">Edit Profile</a>
                             </div>
                         </th>
                     </tr>
@@ -30,7 +32,7 @@
                 <div>
                     <a href="#" class="btn btn-primary">My Entries</a>
                     <span class="pull-right">
-                        <a href="#" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="{{ url_for('admin.author_update', author_id=author.id) }}" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></a>
                         <a href="#" type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
                     </span>
                 </div>
