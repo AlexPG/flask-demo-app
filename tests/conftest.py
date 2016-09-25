@@ -19,7 +19,7 @@ def app_client(app):
 
     return client
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def db():
     _db.create_all()
 
