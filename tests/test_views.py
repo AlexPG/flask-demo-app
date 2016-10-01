@@ -141,3 +141,8 @@ def test_admin_category_can_delete_category(app_client, session):
 def test_admin_category_cant_delete_category_already_deleted(app_client, session):
     response = app_client.get(url_for('admin.category_delete', category_id=3))
     assert response.status_code == 404
+
+# Admin views entries
+def test_admin_entry_can_get_index_view(app_client, session):
+    response = app_client.get(url_for('admin.entries'))
+    assert response.status_code == 200

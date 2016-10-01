@@ -5,7 +5,7 @@ from . import admin
 from .forms import AuthorForm, CategoryForm
 
 from demo_app import db
-from demo_app.blog.models import Author, Category
+from demo_app.blog.models import Author, Category, Entry
 
 @admin.route('/', methods=['GET'])
 def index():
@@ -129,3 +129,9 @@ def category_delete(category_id):
     db.session.commit()
     flash('Category has been successfully deleted')
     return redirect(url_for('admin.categories'))
+
+# Entry views
+@admin.route('/entries', methods=['GET'])
+def entries():
+    entries = Entry.query.all()
+    return render_template('admin/entries/entry_list.html', entries=entries)

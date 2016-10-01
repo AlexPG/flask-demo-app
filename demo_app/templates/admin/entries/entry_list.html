@@ -1,0 +1,49 @@
+{% extends "_layouts/admin_base.html" %}
+
+{% block title %}Entries{% endblock %}
+
+{% block message %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    <strong>{{ message }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block admin_content %}
+    <div class="left">
+        {% if entries %}
+            <h2>Entry list</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <table class="table">
+                        <tr>
+                            <th>Title</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                        </tr>
+                        {% for e in entries %}
+                            <tr>
+                                <td>{{ e.title }}</td>
+                                <td><a href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        {% else %}
+            <p>It looks like there isn't any entry yet. Do you want to create a new one?</p>
+        {% endif %}
+        <a href="#" type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add new entry</a>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
