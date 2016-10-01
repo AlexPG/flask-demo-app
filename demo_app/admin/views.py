@@ -119,3 +119,13 @@ def category_update(category_id):
         flash('Category name must be unique')
         return render_template('admin/categories/category_update.html', form=form, category=category), 404
     return render_template('admin/categories/category_update.html', form=form, category=category)
+
+@admin.route('/categories/delete/<int:category_id>', methods=['GET'])
+def category_delete(category_id):
+    category = Category.query.filter_by(id=category_id).first()
+    if category is None:
+        return abort(404)
+    db.session.delete(category)
+    db.session.commit()
+    flash('Category has been successfully deleted')
+    return redirect(url_for('admin.categories'))

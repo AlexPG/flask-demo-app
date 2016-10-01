@@ -85,3 +85,14 @@ def test_category_cant_update_existing_category_with_non_unique_name(app, sessio
     category.name = 'Sport'
     with pytest.raises(IntegrityError):
         session.commit()
+
+def test_category_can_delete_existing_category(app, session):
+    category = Category.query.filter_by(name='Flask').first()
+    session.delete(category)
+    session.commit()
+
+def test_category_cant_delete_non_existing_category(app, session):
+    category = Category.query.filter_by(name='Flask').first()
+    with pytest.raises(UnmappedInstanceError):
+        session.delete(category)
+        session.commit()
