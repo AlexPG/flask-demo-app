@@ -31,7 +31,7 @@
                             <tr>
                                 <td>{{ c.name }}</td>
                                 <td><a href="#"><span class="glyphicon glyphicon-search"></span></a></td>
-                                <td><a href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a href="{{ url_for('admin.category_update', category_id=c.id) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                 <td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
                             </tr>
                         {% endfor %}

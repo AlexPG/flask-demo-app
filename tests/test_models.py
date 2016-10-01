@@ -74,3 +74,14 @@ def test_category_can_post_another_category(app, session):
     category = Category(name='Sport')
     session.add(category)
     session.commit()
+
+def test_category_can_update_existing_category(app, session):
+    category = Category.query.filter_by(name='IT').first()
+    category.name = 'Flask'
+    session.commit()
+
+def test_category_cant_update_existing_category_with_non_unique_name(app, session):
+    category = Category.query.filter_by(name='Flask').first()
+    category.name = 'Sport'
+    with pytest.raises(IntegrityError):
+        session.commit()

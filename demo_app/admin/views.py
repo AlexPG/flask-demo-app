@@ -100,3 +100,22 @@ def category_create():
         flash('Category name must be unique')
         return render_template('admin/categories/category_create.html', form=form), 404
     return render_template('admin/categories/category_create.html', form=form)
+
+@admin.route('/categories/update/<int:category_id>', methods=['GET', 'POST'])
+def category_update(category_id):
+    category = Category.query.filter_by(id=category_id).first()
+    if category is None:
+        return abort(404)
+    form = CategoryForm(obj=category)
+    try:
+        if form.validate_on_submit():
+            if form.name:
+                category.name = form.name.data
+            db.session.commit()
+            flash('Category has been successfully updated')
+            return redirect(url_for('admin.categories'))
+    except IntegrityError:
+        db.session.rollback()
+        flash('Category name must be unique')
+        return render_template('admin/categories/category_update.html', form=form, category=category), 404
+    return render_template('admin/categories/category_update.html', form=form, category=category)

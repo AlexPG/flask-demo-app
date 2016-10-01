@@ -1,0 +1,32 @@
+{% extends "_layouts/admin_base.html" %}
+
+{% block title %}Category - Update Category{% endblock %}
+
+{% block admin_content %}
+    <div class="left">
+        <h2>Update category</h2>
+        <form method="POST" action="{{ url_for('admin.category_update', category_id=category.id) }}">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Error!</strong> {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% for error in form.errors['name'] %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Error!</strong> {{error}}
+                    </div>
+                {% endfor %}
+                <label>{{ form.name.label }}</label>
+                {{ form.name(placeholder=form.name.description, class_="form-control") }}
+            </div>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </form>
+    </div>
+{% endblock %}
