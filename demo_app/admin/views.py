@@ -5,13 +5,13 @@ from . import admin
 from .forms import AuthorForm
 
 from demo_app import db
-from demo_app.blog.models import Author  
+from demo_app.blog.models import Author, Category
 
 @admin.route('/', methods=['GET'])
 def index():
     return render_template('admin/index.html')
 
-# Authors views
+# Author views
 @admin.route('/authors', methods=['GET'])
 def authors():
     authors = Author.query.all()
@@ -76,3 +76,9 @@ def author_delete(author_id):
     db.session.commit()
     flash('Author has been successfully deleted')
     return redirect(url_for('admin.authors'))
+
+# Category views
+@admin.route('/categories', methods=['GET'])
+def categories():
+    categories = Category.query.all()
+    return render_template('admin/categories/category_list.html', categories=categories)

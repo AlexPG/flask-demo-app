@@ -84,3 +84,8 @@ def test_admin_author_can_delete_user(app_client, session):
 def test_admin_author_cant_delete_user_already_deleted(app_client, session):
     response = app_client.get(url_for('admin.author_delete', author_id=2))
     assert response.status_code == 404
+
+# Admin views categories
+def test_admin_category_can_get_index_view(app_client, session):
+    response = app_client.get(url_for('admin.categories'))
+    assert response.status_code == 200
