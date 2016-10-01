@@ -2,7 +2,7 @@ from flask import abort, flash, render_template, redirect, url_for
 from sqlalchemy.exc import IntegrityError
 
 from . import admin
-from .forms import AuthorForm
+from .forms import AuthorForm, CategoryForm
 
 from demo_app import db
 from demo_app.blog.models import Author, Category
@@ -63,7 +63,7 @@ def author_update(author_id):
             return redirect(url_for('admin.authors'))
     except IntegrityError:
         db.session.rollback()
-        flash('Email must be unique')
+        flash('Author email must be unique')
         return render_template('admin/authors/author_update.html', form=form, author=author), 404
     return render_template('admin/authors/author_update.html', form=form, author=author)
 
@@ -82,3 +82,21 @@ def author_delete(author_id):
 def categories():
     categories = Category.query.all()
     return render_template('admin/categories/category_list.html', categories=categories)
+
+@admin.route('/categories/create', methods=['GET', 'POST'])
+def category_create():
+    form = CategoryForm()
+    try:
+        if form.validate_on_submit():
+            category = Category(
+                        name = form.name.data,
+                    )
+            db.session.add(category)
+            db.session.commit()
+            flash('Category has been successfully created')
+            return redirect(url_for('admin.categories'))
+    except IntegrityError:
+        db.session.rollback()
+        flash('Category name must be unique')
+        return render_template('admin/categories/category_create.html', form=form), 404
+    return render_template('admin/categories/category_create.html', form=form)

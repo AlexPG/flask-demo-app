@@ -15,7 +15,7 @@ def test_admin_author_can_get_index_view(app_client, session):
     response = app_client.get(url_for('admin.authors'))
     assert response.status_code == 200
 
-def test_admin_author_cant_get_detail_view_when_no_user(app_client, session):
+def test_admin_author_cant_get_detail_view_when_no_author(app_client, session):
     response = app_client.get(url_for('admin.author_detail', author_id=11))
     assert response.status_code == 404
 
@@ -47,7 +47,7 @@ def test_admin_author_can_post_another_author(app_client, session):
     }, follow_redirects=True)
     assert response.status_code == 200
 
-def test_admin_author_can_get_create_view_when_user(app_client, session):
+def test_admin_author_can_get_detail_view_when_author(app_client, session):
     response = app_client.get(url_for('admin.author_detail', author_id=1))
     assert response.status_code == 200
 
@@ -55,7 +55,7 @@ def test_admin_author_can_get_update_view(app_client, session):
     response = app_client.get(url_for('admin.author_update', author_id=1))
     assert response.status_code == 200
 
-def test_admin_author_cant_get_update_view_when_user_does_not_exist(app_client, session):
+def test_admin_author_cant_get_update_view_when_author_does_not_exist(app_client, session):
     response = app_client.get(url_for('admin.author_update', author_id=11))
     assert response.status_code == 404
 
@@ -77,15 +77,37 @@ def test_admin_author_cant_post_update_view_when_email_is_duplicated(app_client,
     }, follow_redirects=True)
     assert response.status_code == 404
 
-def test_admin_author_can_delete_user(app_client, session):
+def test_admin_author_can_delete_author(app_client, session):
     response = app_client.get(url_for('admin.author_delete', author_id=3))
     assert response.status_code == 302
 
-def test_admin_author_cant_delete_user_already_deleted(app_client, session):
+def test_admin_author_cant_delete_author_already_deleted(app_client, session):
     response = app_client.get(url_for('admin.author_delete', author_id=2))
     assert response.status_code == 404
 
 # Admin views categories
 def test_admin_category_can_get_index_view(app_client, session):
     response = app_client.get(url_for('admin.categories'))
+    assert response.status_code == 200
+
+def test_admin_category_can_get_create_view(app_client, session):
+    response = app_client.get(url_for('admin.category_create'))
+    assert response.status_code == 200
+
+def test_admin_category_can_post_create_view(app_client, session):
+    response = app_client.post(url_for('admin.category_create'), data={
+        'name': 'IT',
+    }, follow_redirects=True)
+    assert response.status_code == 200
+
+def test_admin_category_cant_post_create_view_with_duplicate_name(app_client, session):
+    response = app_client.post(url_for('admin.category_create'), data={
+        'name': 'IT',
+    }, follow_redirects=True)
+    assert response.status_code == 404
+
+def test_admin_category_can_post_another_category(app_client, session):
+    response = app_client.post(url_for('admin.author_create'), data={
+        'name': 'Sport',
+    }, follow_redirects=True)
     assert response.status_code == 200

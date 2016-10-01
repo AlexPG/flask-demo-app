@@ -41,7 +41,7 @@
         {% else %}
             <p>It looks like there isn't any category yet. Do you want to create a new one?</p>
         {% endif %}
-        <a href="#" type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add new category</a>
+        <a href="{{ url_for('admin.category_create') }}" type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add new category</a>
     </div>
 
 {% endblock %}

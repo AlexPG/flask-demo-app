@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import UnmappedInstanceError
 
-from demo_app.blog.models import Author
+from demo_app.blog.models import Author, Category
 
 # Author model
 def test_author_can_post(app, session):
@@ -11,7 +11,7 @@ def test_author_can_post(app, session):
     session.add(author)
     session.commit()
 
-def test_author_cant_post_same_user(app, session):
+def test_author_cant_post_same_author(app, session):
     author = Author(name='John', description='Hi, I am John Doe', \
                     email='john@example.com')
     session.add(author)
@@ -32,28 +32,45 @@ def test_author_cant_get_non_existing_author(app, session):
     mike = Author.query.filter_by(name='Mike').first()
     assert mike == None
 
-def test_author_can_get_existing_user_list(app, session):
+def test_author_can_get_existing_author_list(app, session):
     authors = Author.query.all()
     assert len(authors) > 0
 
-def test_author_can_update_existing_user(app, session):
+def test_author_can_update_existing_author(app, session):
     author = Author.query.filter_by(name='John').first()
     author.email = 'mike@example.com'
     session.commit()
 
-def test_author_cant_update_existing_user_with_non_unique_email(app, session):
+def test_author_cant_update_existing_author_with_non_unique_email(app, session):
     author = Author.query.filter_by(name='John').first()
     author.email = 'jane@example.com'
     with pytest.raises(IntegrityError):
         session.commit()
 
-def test_author_can_delete_existing_user(app, session):
+def test_author_can_delete_existing_author(app, session):
     author = Author.query.filter_by(name='John').first()
     session.delete(author)
     session.commit()
 
-def test_author_cant_delete_non_existing_user(app, session):
+def test_author_cant_delete_non_existing_author(app, session):
     author = Author.query.filter_by(name='Mike').first()
     with pytest.raises(UnmappedInstanceError):
         session.delete(author)
         session.commit()
+
+# Category model
+def test_category_can_post(app, session):
+    category = Category(name='IT')
+    session.add(category)
+    session.commit()
+
+def test_category_cant_post_same_category(app, session):
+    category = Category(name='IT')
+    session.add(category)
+    with pytest.raises(IntegrityError):
+        session.commit()
+
+def test_category_can_post_another_category(app, session):
+    category = Category(name='Sport')
+    session.add(category)
+    session.commit()
