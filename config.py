@@ -13,16 +13,14 @@ class DevelopmentConfig(Config):
     DEBUG = True
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-                              'sqlite:///' + os.path.join(
-                                            basedir, 'data-dev.sqlite')
+                              'postgresql:///data_dev'
 
 class TestingConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
     SERVER_NAME = 'localhost:5000'
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-                              'sqlite:///' + os.path.join(
-                                            basedir, 'data-test.sqlite')
+                              'postgresql:///data_test'
 
 config = {
     'development': DevelopmentConfig,

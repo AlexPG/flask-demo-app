@@ -78,7 +78,7 @@ def test_admin_author_cant_post_update_view_when_email_is_duplicated(app_client,
     assert response.status_code == 404
 
 def test_admin_author_can_delete_user(app_client, session):
-    response = app_client.get(url_for('admin.author_delete', author_id=2))
+    response = app_client.get(url_for('admin.author_delete', author_id=3))
     assert response.status_code == 302
 
 def test_admin_author_cant_delete_user_already_deleted(app_client, session):
