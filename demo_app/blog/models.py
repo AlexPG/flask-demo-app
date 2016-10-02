@@ -19,7 +19,7 @@ class Author(db.Model):
         self.email = email
 
     def __repr__(self):
-        return '<Author %r>' % self.name
+        return self.name
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -32,7 +32,7 @@ class Category(db.Model):
         self.name = name
 
     def __repr__(self):
-        return '<Category %r>' % self.name
+        return self.name
 
 class Entry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,14 +40,15 @@ class Entry(db.Model):
     body = db.Column(db.Text)
 
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'))
+    author = db.relationship('Author', backref=db.backref('entries'))
 
     en_ca = db.relationship('Category', secondary=entry_category, \
                             backref=db.backref('entries', lazy='dynamic'))
 
-    def __init__(self, title, body, author_id):
+    def __init__(self, title, body, author):
         self.title = title
         self.body = body
-        self.author_id = author_id
+        self.author = author
 
     def __repr__(self):
-        return '<Title %r>' % self.title
+        return self.title

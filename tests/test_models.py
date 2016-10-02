@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import UnmappedInstanceError
 
-from demo_app.blog.models import Author, Category
+from demo_app.blog.models import Author, Category, Entry
 
 # Author model
 def test_author_can_post(app, session):
@@ -96,3 +96,28 @@ def test_category_cant_delete_non_existing_category(app, session):
     with pytest.raises(UnmappedInstanceError):
         session.delete(category)
         session.commit()
+
+# Entry model
+def test_entry_can_post(app, session):
+    john = Author(name='John', description='Hi, I am John Doe', \
+                  email='john@example.com')
+    session.add(john)
+    session.commit()
+
+    it = Category(name='IT')
+    flask = Category(name='Flask')
+    python = Category(name='Python')
+    session.add_all([it, flask, python])
+    session.commit()
+
+    entry1 = Entry(title='Hello World', body='This is my first entry', \
+                   author=john)
+    entry1.en_ca.append(it)
+    entry1.en_ca.append(python)
+    session.add(entry1)
+
+    jane = Author.query.filter_by(name='Jane').first()
+    entry2 = Entry(title='Hello World', body='This is my second entry', \
+                   author=jane)
+    session.add_all([entry1, entry2])
+    session.commit()

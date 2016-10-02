@@ -2,7 +2,7 @@ from flask import abort, flash, render_template, redirect, url_for
 from sqlalchemy.exc import IntegrityError
 
 from . import admin
-from .forms import AuthorForm, CategoryForm
+from .forms import AuthorForm, CategoryForm, EntryForm
 
 from demo_app import db
 from demo_app.blog.models import Author, Category, Entry
@@ -89,7 +89,7 @@ def category_create():
     try:
         if form.validate_on_submit():
             category = Category(
-                        name = form.name.data,
+                        name = form.name.data
                     )
             db.session.add(category)
             db.session.commit()
@@ -135,3 +135,20 @@ def category_delete(category_id):
 def entries():
     entries = Entry.query.all()
     return render_template('admin/entries/entry_list.html', entries=entries)
+
+@admin.route('/entries/create', methods=['GET', 'POST'])
+def entry_create():
+    form = EntryForm()
+    if form.validate_on_submit():
+        entry = Entry(
+                    title = form.title.data,
+                    body = form.body.data,
+                    author=form.author.data,
+                )
+        for c in form.category.data:
+            entry.en_ca.append(c)
+        db.session.add(entry)
+        db.session.commit()
+        flash('Entry has been successfully created')
+        return redirect(url_for('admin.entries'))
+    return render_template('admin/entries/entry_create.html', form=form)

@@ -39,7 +39,7 @@
         {% else %}
             <p>It looks like there isn't any entry yet. Do you want to create a new one?</p>
         {% endif %}
-        <a href="#" type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add new entry</a>
+        <a href="{{ url_for('admin.entry_create') }}" type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add new entry</a>
     </div>
 
 {% endblock %}

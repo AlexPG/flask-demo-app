@@ -1,0 +1,45 @@
+{% extends "_layouts/admin_base.html" %}
+
+{% block title %}Entry - Create Entry{% endblock %}
+
+{% block admin_content %}
+    <div class="left">
+        <h2>Create new entry</h2>
+        <form method="POST" action="{{ url_for('admin.entry_create') }}">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {% for error in form.errors['title'] %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Error!</strong> {{error}}
+                    </div>
+                {% endfor %}
+                <label>{{ form.title.label }}</label>
+                {{ form.title(placeholder=form.title.description, class_="form-control") }}
+            </div>
+            <div class="form-group">
+                {% for error in form.errors['body'] %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Error!</strong> {{error}}
+                    </div>
+                {% endfor %}
+                <label>{{ form.body.label }}</label>
+                {{ form.body(placeholder=form.body.description, class_="form-control") }}
+            </div>
+            <div class="form-group">
+                {% for error in form.errors['author'] %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Error!</strong> {{error}}
+                    </div>
+                {% endfor %}
+                <label>{{ form.author.label }}</label>
+                {{ form.author }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.category.label }}</label>
+                {{ form.category }}
+            </div>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </form>
+    </div>
+{% endblock %}

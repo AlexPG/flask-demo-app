@@ -96,19 +96,19 @@ def test_admin_category_can_get_create_view(app_client, session):
 
 def test_admin_category_can_post_create_view(app_client, session):
     response = app_client.post(url_for('admin.category_create'), data={
-        'name': 'IT',
+        'name': 'IT'
     }, follow_redirects=True)
     assert response.status_code == 200
 
 def test_admin_category_cant_post_create_view_with_duplicate_name(app_client, session):
     response = app_client.post(url_for('admin.category_create'), data={
-        'name': 'IT',
+        'name': 'IT'
     }, follow_redirects=True)
     assert response.status_code == 404
 
 def test_admin_category_can_post_another_category(app_client, session):
     response = app_client.post(url_for('admin.category_create'), data={
-        'name': 'Sport',
+        'name': 'Sport'
     }, follow_redirects=True)
     assert response.status_code == 200
 
@@ -121,16 +121,16 @@ def test_admin_category_cant_get_update_view_when_category_does_not_exist(app_cl
     assert response.status_code == 404
 
 def test_admin_category_can_post_update_view_new_data(app_client, session):
-    response = app_client.post(url_for('admin.category_update', category_id=1), 
+    response = app_client.post(url_for('admin.category_update', category_id=1),
     data={
-        'name': 'Flask',
+        'name': 'Flask'
     }, follow_redirects=True)
     assert response.status_code == 200
 
 def test_admin_category_cant_post_update_view_when_name_is_duplicated(app_client, session):
-    response = app_client.post(url_for('admin.category_update', category_id=1), 
+    response = app_client.post(url_for('admin.category_update', category_id=1),
     data={
-        'name': 'Sport',
+        'name': 'Sport'
     }, follow_redirects=True)
     assert response.status_code == 404
 
@@ -145,4 +145,25 @@ def test_admin_category_cant_delete_category_already_deleted(app_client, session
 # Admin views entries
 def test_admin_entry_can_get_index_view(app_client, session):
     response = app_client.get(url_for('admin.entries'))
+    assert response.status_code == 200
+
+def test_admin_entry_can_get_create_view(app_client, session):
+    response = app_client.get(url_for('admin.entry_create'))
+    assert response.status_code == 200
+
+def test_admin_entry_can_post_create_view(app_client, session):
+    response = app_client.post(url_for('admin.entry_create'), data={
+        'title': 'Hello World',
+        'body': 'This is my first entry',
+        'author': 1,
+        'category': [1, ]
+    }, follow_redirects=True)
+    assert response.status_code == 200
+
+def test_admin_entry_cant_post_create_view_non_existing_author(app_client, session):
+    response = app_client.post(url_for('admin.entry_create'), data={
+        'title': 'Hello World',
+        'body': 'This is my second entry',
+        'author': 2
+    }, follow_redirects=True)
     assert response.status_code == 200
