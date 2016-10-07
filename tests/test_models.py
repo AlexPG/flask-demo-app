@@ -127,3 +127,11 @@ class TestEntry:
                        author=jane)
         session.add_all([entry1, entry2])
         session.commit()
+
+    def test_entry_can_get_existing_entry(self, app, session):
+        entry = Entry.query.filter_by(title='Hello World').first()
+        assert entry.title == 'Hello World'
+
+    def test_entry_cant_get_non_existing_entry(self, app, session):
+        entry = Entry.query.filter_by(title='Hello').first()
+        assert entry == None

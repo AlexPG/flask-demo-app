@@ -1,0 +1,54 @@
+{% extends '_layouts/admin_base.html' %}
+
+{% block title %}Entry - {{ entry.title }}{% endblock %}
+
+{% block admin_content %}
+    <div class="left">
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordesless">
+                     <tr>
+                        <th>{{ entry.title }}</th>
+                        <th>
+                            <div class="pull-right">
+                                <a href="#">Edit Entry</a>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Body:</td>
+                            <td>{{ entry.body|truncate(200) }}</td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Author:</td>
+                        <td>{{ entry.author.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Categories:</td>
+                        {% if entry.en_ca %}
+                            <td>
+                                {% for e in entry.en_ca %}
+                                    <a href="#" class="btn btn-primary">{{ e }}</a>
+                                {% endfor %}
+                            </td>
+                        {% else %}
+                            <td>This entry hasnt any category.</td>
+                        {% endif %}
+                    </tr>
+                </table>
+                <div>
+                    <span class="pull-right">
+                        <a href="#" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="#" type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}

@@ -28,7 +28,7 @@
                         </tr>
                         {% for e in entries %}
                             <tr>
-                                <td>{{ e.title }}</td>
+                                <td><a href="{{ url_for('admin.entry_detail', entry_id=e.id) }}">{{ e.title }}</a></td>
                                 <td><a href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                 <td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
                             </tr>

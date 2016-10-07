@@ -136,6 +136,13 @@ def entries():
     entries = Entry.query.all()
     return render_template('admin/entries/entry_list.html', entries=entries)
 
+@admin.route('/entries/<int:entry_id>', methods=['GET'])
+def entry_detail(entry_id):
+    entry = Entry.query.filter_by(id=entry_id).first()
+    if entry is not None:
+        return render_template('admin/entries/entry_detail.html', entry=entry)
+    return abort(404)
+
 @admin.route('/entries/create', methods=['GET', 'POST'])
 def entry_create():
     form = EntryForm()
