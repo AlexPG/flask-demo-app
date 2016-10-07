@@ -14,7 +14,7 @@ def index():
 # Author views
 @admin.route('/authors', methods=['GET'])
 def authors():
-    authors = Author.query.all()
+    authors = Author.query.order_by('id').all()
     return render_template('admin/authors/author_list.html', authors=authors)
 
 @admin.route('/authors/<int:author_id>', methods=['GET'])
@@ -80,7 +80,7 @@ def author_delete(author_id):
 # Category views
 @admin.route('/categories', methods=['GET'])
 def categories():
-    categories = Category.query.all()
+    categories = Category.query.order_by('id').all()
     return render_template('admin/categories/category_list.html', categories=categories)
 
 @admin.route('/categories/create', methods=['GET', 'POST'])
@@ -133,7 +133,7 @@ def category_delete(category_id):
 # Entry views
 @admin.route('/entries', methods=['GET'])
 def entries():
-    entries = Entry.query.all()
+    entries = Entry.query.order_by('id').all()
     return render_template('admin/entries/entry_list.html', entries=entries)
 
 @admin.route('/entries/<int:entry_id>', methods=['GET'])
@@ -159,3 +159,25 @@ def entry_create():
         flash('Entry has been successfully created')
         return redirect(url_for('admin.entries'))
     return render_template('admin/entries/entry_create.html', form=form)
+
+@admin.route('/entries/update/<int:entry_id>', methods=['GET', 'POST'])
+def entry_update(entry_id):
+    entry = Entry.query.filter_by(id=entry_id).first()
+    if entry is None:
+        return abort(404)
+    form = EntryForm(obj=entry)
+    if form.validate_on_submit():
+        if form.title:
+            entry.title = form.title.data
+        if form.body:
+            entry.body = form.body.data
+        if form.author:
+            entry.author = form.author.data
+        if form.category.data:
+            entry.refresh_categories()
+            for c in form.category.data:
+                entry.en_ca.append(c)
+        db.session.commit()
+        flash('Entry has been successfully updated')
+        return redirect(url_for('admin.entries'))
+    return render_template('admin/entries/entry_update.html', form=form, entry=entry)

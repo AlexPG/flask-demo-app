@@ -11,7 +11,7 @@
                         <th>{{ entry.title }}</th>
                         <th>
                             <div class="pull-right">
-                                <a href="#">Edit Entry</a>
+                                <a href="{{ url_for('admin.entry_update', entry_id=entry.id) }}">Edit Entry</a>
                             </div>
                         </th>
                     </tr>
@@ -39,7 +39,7 @@
                 </table>
                 <div>
                     <span class="pull-right">
-                        <a href="#" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="{{ url_for('admin.entry_update', entry_id=entry.id) }}" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></a>
                         <a href="#" type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
                     </span>
                 </div>

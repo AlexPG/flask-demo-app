@@ -52,3 +52,7 @@ class Entry(db.Model):
 
     def __repr__(self):
         return self.title
+
+    def refresh_categories(self):
+        self.en_ca = []
+

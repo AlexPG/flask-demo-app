@@ -135,3 +135,18 @@ class TestEntry:
     def test_entry_cant_get_non_existing_entry(self, app, session):
         entry = Entry.query.filter_by(title='Hello').first()
         assert entry == None
+
+    def test_entry_can_update_existing_entry(self, app, session):
+        entry = Entry.query.filter_by(title='Hello World').first()
+        
+        flask = Category.query.filter_by(name='Flask').first()
+        it = Category.query.filter_by(name='IT').first()
+
+        jane = Author.query.filter_by(name='Jane').first()
+
+        entry.name = 'Hello World again!'
+        entry.body = 'This is the new Content'
+        entry.author = jane
+        entry.en_ca.append(flask)
+        entry.en_ca.remove(it)
+        session.commit()
