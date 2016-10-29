@@ -39,7 +39,7 @@ class Entry(db.Model):
     body = db.Column(db.Text)
 
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'))
-    author = db.relationship('Author', backref=db.backref('entries'))
+    author = db.relationship('Author', backref=db.backref('entries', cascade='all, delete-orphan'))
 
     en_ca = db.relationship('Category', secondary=entry_category, \
                             backref=db.backref('entries', lazy='dynamic'))
@@ -54,4 +54,3 @@ class Entry(db.Model):
 
     def refresh_categories(self):
         self.en_ca = []
-
