@@ -203,3 +203,11 @@ class TestEntry:
             'category': [4, 5]
         }, follow_redirects=True)
         assert response.status_code == 200
+
+    def test_admin_entry_can_delete_entry(self, app_client, session):
+        response = app_client.get(url_for('admin.entry_delete', entry_id=1))
+        assert response.status_code == 302
+
+    def test_admin_entry_cant_delete_entry_already_deleted(self, app_client, session):
+        response = app_client.get(url_for('admin.entry_delete', entry_id=1))
+        assert response.status_code == 404

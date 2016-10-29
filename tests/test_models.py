@@ -150,3 +150,14 @@ class TestEntry:
         entry.en_ca.append(flask)
         entry.en_ca.remove(it)
         session.commit()
+
+    def test_entry_can_delete_existing_entry(self, app, session):
+        entry = Entry.query.filter_by(id=1).first()
+        session.delete(entry)
+        session.commit()
+
+    def test_entry_cant_delete_non_existing_entry(self, app, session):
+        entry = Entry.query.filter_by(id=1).first()
+        with pytest.raises(UnmappedInstanceError):
+            session.delete(entry)
+            session.commit()

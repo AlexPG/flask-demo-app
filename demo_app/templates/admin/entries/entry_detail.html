@@ -40,15 +40,18 @@
                 <div>
                     <span class="pull-right">
                         <a href="{{ url_for('admin.entry_update', entry_id=entry.id) }}" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></a>
-                        <a href="#" type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                        <td><a href="#" data-href="{{ url_for('admin.entry_delete', entry_id=entry.id) }}" data-toggle="modal"data-target="#confirm-delete" type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
                     </span>
                 </div>
             </div>
         </div>
     </div>
 
+    {% include "admin/entries/delete_entry_modal.html" %}
+
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/confirm_delete.js') }}"></script>
 {% endblock %}

@@ -25,8 +25,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
 
-    ca_en = db.relationship('Entry', secondary=entry_category, \
-                            backref=db.backref('categories', lazy='dynamic'))
+    ca_en = db.relationship('Entry', secondary=entry_category)
 
     def __init__(self, name):
         self.name = name
