@@ -30,7 +30,7 @@
                             <tr>
                                 <td><a href="{{ url_for('admin.entry_detail', entry_id=e.id) }}">{{ e.title }}</a></td>
                                 <td><a href="{{ url_for('admin.entry_update', entry_id=e.id) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                <td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                <td><a href="#" data-href="{{ url_for('admin.entry_delete', entry_id=e.id) }}" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-remove"></span></a></td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -42,8 +42,11 @@
         <a href="{{ url_for('admin.entry_create') }}" type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add new entry</a>
     </div>
 
+    {% include "admin/entries/delete_entry_modal.html" %}
+
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/confirm_delete.js') }}"></script>
 {% endblock %}

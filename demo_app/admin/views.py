@@ -181,3 +181,13 @@ def entry_update(entry_id):
         flash('Entry has been successfully updated')
         return redirect(url_for('admin.entries'))
     return render_template('admin/entries/entry_update.html', form=form, entry=entry)
+
+@admin.route('/entries/delete/<int:entry_id>', methods=['GET'])
+def entry_delete(entry_id):
+    entry = Entry.query.filter_by(id=entry_id).first()
+    if entry is None:
+        return abort(404)
+    db.session.delete(entry)
+    db.session.commit()
+    flash('Entry has been successfully deleted')
+    return redirect(url_for('admin.entries'))
