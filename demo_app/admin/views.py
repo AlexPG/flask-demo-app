@@ -1,5 +1,4 @@
-from flask import abort, flash, render_template, redirect, url_from flask import current_app as appfor
-from flask import current_app as app
+from flask import abort, flash, render_template, redirect, url_for, current_app as app
 from sqlalchemy.exc import IntegrityError
 
 from . import admin
