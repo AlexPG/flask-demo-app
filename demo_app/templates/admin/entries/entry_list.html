@@ -26,7 +26,7 @@
                             <th>Edit</th>
                             <th>Remove</th>
                         </tr>
-                        {% for e in entries %}
+                        {% for e in entries.items %}
                             <tr>
                                 <td><a href="{{ url_for('admin.entry_detail', entry_id=e.id) }}">{{ e.title }}</a></td>
                                 <td><a href="{{ url_for('admin.entry_update', entry_id=e.id) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
@@ -34,6 +34,9 @@
                             </tr>
                         {% endfor %}
                     </table>
+
+                    {% include "admin/entries/pagination.html" %}
+
                 </div>
             </div>
         {% else %}

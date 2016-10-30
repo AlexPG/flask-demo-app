@@ -18,7 +18,7 @@ def authors(page=1):
     authors = Author.query.order_by('id').paginate(page, app.config['PER_PAGE'], False)
     return render_template('admin/authors/author_list.html', authors=authors)
 
-@admin.route('/authors/<int:author_id>', methods=['GET'])
+@admin.route('/authors/detail/<int:author_id>', methods=['GET'])
 def author_detail(author_id):
     author = Author.query.filter_by(id=author_id).first()
     if author is not None:
@@ -134,11 +134,12 @@ def category_delete(category_id):
 
 # Entry views
 @admin.route('/entries', methods=['GET'])
-def entries():
-    entries = Entry.query.order_by('id').all()
+@admin.route('/entries/<int:page>', methods=['GET'])
+def entries(page=1):
+    entries = Entry.query.order_by('id').paginate(page, app.config['PER_PAGE'], False)
     return render_template('admin/entries/entry_list.html', entries=entries)
 
-@admin.route('/entries/<int:entry_id>', methods=['GET'])
+@admin.route('/entries/detail/<int:entry_id>', methods=['GET'])
 def entry_detail(entry_id):
     entry = Entry.query.filter_by(id=entry_id).first()
     if entry is not None:
