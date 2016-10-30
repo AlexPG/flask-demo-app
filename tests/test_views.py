@@ -37,6 +37,14 @@ class TestAuthor:
         }, follow_redirects=True)
         assert response.status_code == 200
 
+    def test_admin_author_cant_post_create_view_with_name_longer_than_50(self, app_client, session):
+        response = app_client.post(url_for('admin.author_create'), data={
+            'name': 'Lorem ipsum dolor sit amet, consectetur massa nunc.',
+            'description': 'Hi, I am Lorem',
+            'email': 'lorem@example.com'
+        }, follow_redirects=True)
+        assert response.status_code == 200
+
     def test_admin_author_cant_post_create_view_with_duplicate_email(self, app_client, session):
         response = app_client.post(url_for('admin.author_create'), data={
             'name': 'John Doe',
@@ -44,6 +52,14 @@ class TestAuthor:
             'email': 'john@example.com'
         }, follow_redirects=True)
         assert response.status_code == 404
+
+    def test_admin_author_cant_post_create_view_with_email_longer_than_120(self, app_client, session):
+        response = app_client.post(url_for('admin.author_create'), data={
+            'name': 'Lorem',
+            'description': 'Hi, I am Lorem',
+            'email': 'loremipsumdolorsitametconsecteturadipiscingelitmorbivelauguemalesuadatempornislettempuseratsedsedloremipsumdl@example.com'
+        }, follow_redirects=True)
+        assert response.status_code == 200
 
     def test_admin_author_can_post_another_author(self, app_client, session):
         response = app_client.post(url_for('admin.author_create'), data={
@@ -114,6 +130,12 @@ class TestCategory:
         }, follow_redirects=True)
         assert response.status_code == 404
 
+    def test_admin_category_cant_post_create_view_with_name_longer_than_50(self, app_client, session):
+        response = app_client.post(url_for('admin.category_create'), data={
+            'name': 'loremipsumdolorsitametconsecteturadipiscingelitmorb'
+        }, follow_redirects=True)
+        assert response.status_code == 200
+
     def test_admin_category_can_post_another_category(self, app_client, session):
         response = app_client.post(url_for('admin.category_create'), data={
             'name': 'Sport'
@@ -174,7 +196,15 @@ class TestEntry:
         }, follow_redirects=True)
         assert response.status_code == 200
 
-    def test_admin_entry_cant_post_create_view_non_existing_author(self, app_client, session):
+    def test_admin_entry_cant_post_create_view_with_title_longer_than_50(self, app_client, session):
+        response = app_client.post(url_for('admin.entry_create'), data={
+            'title': 'loremipsumdolorsitametconsecteturadipiscingelitmorb',
+            'body': 'This is my second entry',
+            'author': 1
+        }, follow_redirects=True)
+        assert response.status_code == 200
+
+    def test_admin_entry_cant_post_create_view_with_non_existing_author(self, app_client, session):
         response = app_client.post(url_for('admin.entry_create'), data={
             'title': 'Hello World',
             'body': 'This is my second entry',
