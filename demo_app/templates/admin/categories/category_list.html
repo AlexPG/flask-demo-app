@@ -27,7 +27,7 @@
                             <th>Edit</th>
                             <th>Remove</th>
                         </tr>
-                        {% for c in categories %}
+                        {% for c in categories.items %}
                             <tr>
                                 <td>{{ c.name }}</td>
                                 <td><a href="#"><span class="glyphicon glyphicon-search"></span></a></td>
@@ -36,6 +36,9 @@
                             </tr>
                         {% endfor %}
                     </table>
+                    
+                    {% include "admin/categories/pagination.html" %}
+
                 </div>
             </div>
         {% else %}

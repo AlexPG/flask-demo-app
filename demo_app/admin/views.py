@@ -1,4 +1,5 @@
-from flask import abort, flash, render_template, redirect, url_for
+from flask import abort, flash, render_template, redirect, url_from flask import current_app as appfor
+from flask import current_app as app
 from sqlalchemy.exc import IntegrityError
 
 from . import admin
@@ -79,10 +80,11 @@ def author_delete(author_id):
 
 # Category views
 @admin.route('/categories', methods=['GET'])
-def categories():
-    categories = Category.query.order_by('id').all()
+@admin.route('/categories/<int:page>', methods=['GET'])
+def categories(page=1):
+    categories = Category.query.order_by('id').paginate(page, app.config['PER_PAGE'], False)
     return render_template('admin/categories/category_list.html', categories=categories)
-
+    
 @admin.route('/categories/create', methods=['GET', 'POST'])
 def category_create():
     form = CategoryForm()

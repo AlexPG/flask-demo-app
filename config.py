@@ -4,6 +4,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'my super secret key!!!'
+    PER_PAGE = 5
 
     @staticmethod
     def init_app(app):
