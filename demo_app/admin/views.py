@@ -13,8 +13,9 @@ def index():
 
 # Author views
 @admin.route('/authors', methods=['GET'])
-def authors():
-    authors = Author.query.order_by('id').all()
+@admin.route('/authors/<int:page>', methods=['GET'])
+def authors(page=1):
+    authors = Author.query.order_by('id').paginate(page, app.config['PER_PAGE'], False)
     return render_template('admin/authors/author_list.html', authors=authors)
 
 @admin.route('/authors/<int:author_id>', methods=['GET'])

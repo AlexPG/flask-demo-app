@@ -26,7 +26,7 @@
                             <th>Edit</th>
                             <th>Remove</th>
                         </tr>
-                        {% for a in authors %}
+                        {% for a in authors.items %}
                             <tr>
                                 <td><a href="{{ url_for('admin.author_detail', author_id=a.id) }}">{{ a.name }}</a></td>
                                 <td><a href="{{ url_for('admin.author_update', author_id=a.id) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
@@ -34,6 +34,9 @@
                             </tr>
                         {% endfor %}
                     </table>
+
+                    {% include "admin/authors/pagination.html" %}
+
                 </div>
             </div>
         {% else %}
