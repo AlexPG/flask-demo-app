@@ -3,7 +3,7 @@ import pytest
 from demo_app import create_app
 from demo_app import db as _db
 
-from demo_app.blog.models import Author, Category
+from demo_app.blog.models import Author, Category, Entry
 
 @pytest.fixture(scope='session')
 def app():
@@ -51,4 +51,18 @@ def create_categories(session):
     python = Category(name='Python')
     javascript = Category(name='Javascript')
     session.add_all([python, javascript])
+    session.commit()
+
+@pytest.fixture()
+def create_entries(session, create_authors, create_categories):
+    mike = Author.query.filter_by(name='Mike').first()
+
+    javascript = Category.query.filter_by(name='Javascript').first()
+    python = Category.query.filter_by(name='Python').first()
+
+    entry1 = Entry(title='Hello World', body='This is my first entry', \
+                   author=mike)
+    entry1.en_ca.append(javascript)
+    entry1.en_ca.append(python)
+    session.add(entry1)
     session.commit()
