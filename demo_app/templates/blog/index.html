@@ -4,15 +4,15 @@
     <div class="left right">
         {% for e in entries.items %}
             <div>
-                <h2><a href="#">{{ e.title }}</a></h2>
-                <h5><i><a href="#">{{ e.author }}</a></i></h5>
+                <h2><a href="{{ url_for('blog.entry_detail', entry_id=e.id) }}">{{ e.title }}</a></h2>
+                <h5><i>by <a href="{{ url_for('admin.author_detail', author_id=e.author.id) }}">{{ e.author }}</a></i></h5>
                 {{ e.body|truncate(500) }}
-                <a href="#">Read More</a>
+                <a href="{{ url_for('blog.entry_detail', entry_id=e.id) }}">Read More</a>
             </div>
         {% else %}
             <p>There are no entries yet.</p>
         {% endfor %}
 
         {% include "blog/pagination.html" %}
-    </left>
+    </div>
 {% endblock %}

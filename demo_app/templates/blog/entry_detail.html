@@ -1,0 +1,18 @@
+{% extends '_layouts/blog_base.html' %}
+
+{% block blog_content %}
+    <div class="left right">
+        <h2>{{entry.title}}<h2>
+        <h5><i>by <a href="{{ url_for('admin.author_detail', author_id=entry.author.id) }}">{{ entry.author }}</a></i></h5>
+        {{ entry.body }}
+        <p><b>Categories:</b></p>
+        {% for c in entry.en_ca  %}
+            <a href="#" class="btn btn-primary">{{ c }}</a>
+        {% else %}
+            <p>This entry hasnt any category yet.</p>
+        {% endfor %}
+    </div>
+    <div class="left right top-button">
+        <p><a href="javascript:history.back()" class="btn btn-default">&larr; Back</a></p>
+    </div>
+{% endblock %}
