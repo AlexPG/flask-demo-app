@@ -1,0 +1,18 @@
+{% extends '_layouts/blog_base.html' %}
+
+{% block blog_content %}
+    <div class="left right">
+        {% for e in entries.items %}
+            <div>
+                <h2><a href="#">{{ e.title }}</a></h2>
+                <h5><i><a href="#">{{ e.author }}</a></i></h5>
+                {{ e.body|truncate(500) }}
+                <a href="#">Read More</a>
+            </div>
+        {% else %}
+            <p>There are no entries yet.</p>
+        {% endfor %}
+
+        {% include "blog/pagination.html" %}
+    </left>
+{% endblock %}

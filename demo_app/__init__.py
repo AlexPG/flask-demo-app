@@ -28,4 +28,7 @@ def create_app(config_name):
     from .admin import admin as adminModule
     app.register_blueprint(adminModule, url_prefix='/admin')
 
+    from .blog import blog as blogModule
+    app.register_blueprint(blogModule, url_prefix='/blog')
+
     return app
