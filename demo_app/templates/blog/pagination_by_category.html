@@ -2,7 +2,7 @@
     <ul class="pager">
         {% if entries.has_prev %}
             <li class="previous">
-                <a href="{{ url_for('blog.search_by_author', name=name, page=entries.prev_num) }}">
+                <a href="{{ url_for('blog.search_by_category', name=name, page=entries.prev_num) }}">
                     <span aria-hidden="true">&larr;</span> Previous
                 </a>
             </li>
@@ -16,7 +16,7 @@
 
         {% if entries.has_next %}
             <li class="next">
-                <a href="{{ url_for('blog.search_by_author', name=name, page=entries.next_num) }}">
+                <a href="{{ url_for('blog.search_by_category', name=name, page=entries.next_num) }}">
                     <span aria-hidden="true">&rarr;</span> Next
                 </a>
             </li>

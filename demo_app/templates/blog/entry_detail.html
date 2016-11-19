@@ -7,7 +7,7 @@
         {{ entry.body }}
         <p><b>Categories:</b></p>
         {% for c in entry.en_ca  %}
-            <a href="#" class="btn btn-primary">{{ c }}</a>
+            <a href="{{ url_for('blog.search_by_category', name=c) }}" class="btn btn-primary">{{ c }}</a>
         {% else %}
             <p>This entry hasnt any category yet.</p>
         {% endfor %}

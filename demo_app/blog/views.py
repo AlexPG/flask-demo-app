@@ -21,4 +21,10 @@ def entry_detail(entry_id):
 def search_by_author(name, page=1):
     author = Author.query.filter_by(name=name).subquery()
     entries = Entry.query.filter(Entry.author_id==author.c.id).paginate(page, app.config['PER_PAGE'], False)
-    return render_template('blog/by_author.html', entries=entries)
+    return render_template('blog/by_author.html', entries=entries, name=name)
+
+@blog.route('/search/by_category/<string:name>', methods=['GET'])
+@blog.route('/search/by_category/<string:name>/<int:page>', methods=['GET'])
+def search_by_category(name, page=1):
+    entries = Entry.query.filter(Entry.en_ca.any(name=name)).paginate(page, app.config['PER_PAGE'], False)
+    return render_template('blog/by_category.html', entries=entries, name=name)

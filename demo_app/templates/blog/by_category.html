@@ -10,9 +10,9 @@
                 <a href="{{ url_for('blog.entry_detail', entry_id=e.id) }}">Read More</a>
             </div>
         {% else %}
-            <p>This author hasnt any entry yet.</p>
+            <p>This category hasnt any related entries.</p>
         {% endfor %}
 
-        {% include "blog/pagination_by_author.html" %}
+        {% include "blog/pagination_by_category.html" %}
     </div>
 {% endblock %}

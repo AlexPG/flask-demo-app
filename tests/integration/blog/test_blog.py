@@ -17,3 +17,7 @@ class TestBlog:
     def test_blog_can_search_by_author(self, app_client, session):
         response = app_client.get(url_for('blog.search_by_author', name='Mike'))
         assert response.status_code == 200
+
+    def test_blog_can_search_by_category(self, app_client, session):
+        response = app_client.get(url_for('blog.search_by_author', name='Python'))
+        assert response.status_code == 200
