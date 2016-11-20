@@ -31,4 +31,7 @@ def create_app(config_name):
     from .blog import blog as blogModule
     app.register_blueprint(blogModule, url_prefix='/blog')
 
+    from .api import api_blueprint as apiModule
+    app.register_blueprint(apiModule, url_prefix='/api')
+
     return app

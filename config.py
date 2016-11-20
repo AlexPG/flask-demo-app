@@ -16,6 +16,12 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
                               'postgresql:///data_dev'
 
+    # Flask-Restplus settings
+    RESTPLUS_SWAGGER_UI_DOC_EXPANSION = 'list'
+    RESTPLUS_VALIDATE = True
+    RESTPLUS_MASK_SWAGGER = False
+    RESTPLUS_ERROR_404_HELP = False
+
 class TestingConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
