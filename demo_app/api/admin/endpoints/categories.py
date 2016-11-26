@@ -17,7 +17,7 @@ class CategoryCollection(Resource):
     @api.marshal_list_with(page_of_categories)
     def get(self):
         """
-        Return list of categories.
+        Returns a list of categories.
         Use this method to get all categories.
         """
         args = pagination_arguments.parse_args(request)
