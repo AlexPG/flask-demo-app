@@ -29,7 +29,7 @@
                         {% if entry.en_ca %}
                             <td>
                                 {% for e in entry.en_ca %}
-                                    <a href="#" class="btn btn-primary">{{ e }}</a>
+                                    <a href="{{ url_for('blog.search_by_category', name=e) }}" class="btn btn-primary">{{ e }}</a>
                                 {% endfor %}
                             </td>
                         {% else %}

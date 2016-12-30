@@ -81,6 +81,6 @@ class TestCategory:
         response = app_client.delete('/api/admin/categories/1')
         assert response.status_code == 204
 
-    def test_api_category_cant_delete_category_already_deleted(self, app_client, session):
+    def test_api_category_cant_delete_already_deleted_category(self, app_client, session):
         response = app_client.delete('/api/admin/categories/1')
         assert response.status_code == 404

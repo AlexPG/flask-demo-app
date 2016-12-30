@@ -6,7 +6,7 @@ class TestAuthor:
         response = app_client.get('/api/admin/authors/1')
         assert response.status_code == 404
 
-    def test_api_author_cant_get_author_index(self, app_client, session):
+    def test_api_author_can_get_author_index(self, app_client, session):
         response = app_client.get('/api/admin/authors/')
         assert response.status_code == 200
 
@@ -117,6 +117,6 @@ class TestAuthor:
         response = app_client.delete('/api/admin/authors/1')
         assert response.status_code == 204
 
-    def test_api_author_cant_delete_author_already_deleted(self, app_client, session):
+    def test_api_author_cant_delete_already_deleted_author(self, app_client, session):
         response = app_client.delete('/api/admin/authors/1')
         assert response.status_code == 404
